@@ -140,6 +140,7 @@ export async function updateDeck(updatedDeck, signal) {
  */
 export async function deleteDeck(deckId, signal) {
   const url = `${API_BASE_URL}/decks/${deckId}`;
+  console.log("called delete")
   const options = { method: "DELETE", signal };
   return await fetchJson(url, options);
 }
