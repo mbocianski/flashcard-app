@@ -26,17 +26,12 @@ function CreateDeckForm({decks, addDeck}){
         await addDeck(deckToAdd);
     }
 
-    function newDeck(){
-        const deck = {name: "yes", description:"yupyup"}
-        addDeck(deck);
-    }
+
 
     //On submit, call newDeck() and send data to addDeck function to update state.
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log("before: ", decks)
         newDeck(formData);
-        console.log("after: ", decks)
         setFormData({...initialFormData});
         
     }
