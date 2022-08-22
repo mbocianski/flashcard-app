@@ -2,11 +2,12 @@ import React from "react";
 import DeleteDeck from "./DeleteDeck";
 
 
-function DeckView({deck, removeDeck}){
-const name = deck.name;
-const id = deck.id;
-const description = deck.description;
-const cards = deck.cards;
+
+function DeckView({deck:{name, id, description,cards}, removeDeck}){
+//const name = deck.name;
+//const id = deck.id;
+//const description = deck.description;
+//const cards = deck.cards;
 const cardCount = cards.length;
     return (
         <div>
