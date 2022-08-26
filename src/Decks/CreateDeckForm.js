@@ -1,6 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {createDeck} from "../utils/api/index"
+import {Link} from "react-router-dom"
 
 
 function CreateDeckForm({decks, addDeck}){
@@ -58,6 +59,9 @@ function CreateDeckForm({decks, addDeck}){
                 required={true} />
             </label>
             <button type="submit">Submit</button>
+            <Link to="/">
+            <button>Cancel</button>
+            </Link>
         </form>
     )
 }
