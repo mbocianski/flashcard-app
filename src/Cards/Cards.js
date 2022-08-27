@@ -1,23 +1,19 @@
 import React from "react";
 import Card from "./Card";
 
-function Cards({deck: {cards}}){
-    console.log(cards);
+function Cards({deck: {cards=[]}, removeCard}){
 
-function CardList(){ 
     return cards.map((card, index) => {
-    return(
-      <div className="border border-solid" key={index}>
-        <Card card={card}/>
-        </div>
-      )
-    });
+        return(
+        <div className="border border-solid" key={index}>
+            <Card card={card} removeCard={removeCard}/>
+            </div>
+        )
+        });
 }
 
-    return (
-        <CardList />
-    )
-}
+
+
 
 
 export default Cards;

@@ -1,10 +1,10 @@
 import React from "react";
 import {useState} from "react";
 import {createDeck} from "../utils/api/index"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 
 
-function CreateDeckForm({decks, addDeck}){
+function CreateDeckForm({addDeck}){
 
     const initialFormData = {
         name: "",
@@ -24,16 +24,18 @@ function CreateDeckForm({decks, addDeck}){
     //Send new deck to API and return newly deck data
     async function newDeck(formData) {
         const deckToAdd = await createDeck(formData);
-        await addDeck(deckToAdd);
+        await addDeck(deckToAdd)
+        history.push(`/decks/${deckToAdd.id}`)
     }
 
-
+    let history = useHistory();
 
     //On submit, call newDeck() and send data to addDeck function to update state.
     const submitHandler = (event) => {
         event.preventDefault();
         newDeck(formData);
         setFormData({...initialFormData});
+
         
     }
 
@@ -60,7 +62,7 @@ function CreateDeckForm({decks, addDeck}){
             </label>
             <button type="submit">Submit</button>
             <Link to="/">
-            <button>Cancel</button>
+                <button>Cancel</button>
             </Link>
         </form>
     )

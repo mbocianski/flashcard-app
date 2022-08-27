@@ -1,9 +1,11 @@
 import React from "react";
 import {deleteDeck} from "../utils/api/index"
-import {Link} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 
 
 function DeleteDeck ({deckId, removeDeck}) {
+
+let history=useHistory();    
 //updates data in API for permanant alteraction
 //removeDeck updates state to avoid reloading page
     async function deleteDeckHandler() {
@@ -11,15 +13,13 @@ function DeleteDeck ({deckId, removeDeck}) {
         removeDeck(deckId);
         await deleteDeck(deckId);
         console.log("Deleted: ", deckId);
+        history.push("/");
         
      }        
     }
  
     return (
-
-        <Link to="/">
         <button onClick={deleteDeckHandler}>Delete</button>
-        </Link>
     )
 }
 

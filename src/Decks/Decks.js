@@ -1,9 +1,7 @@
 import React from "react";
-//import Deck from "./Deck";
 //import { useState, useEffect } from "react";
-import DeckView from "./DeckView";
 import {Link} from "react-router-dom"
-import Deck from "./Deck.js";
+import DeckView from "./DeckView";
 
     
 
@@ -12,15 +10,16 @@ function Decks({decks, removeDeck, ids}){
 
 //render list of decks using DeckView
 // Passes removeDeck function
-  function DeckList(){
-    decks.map((deck, index) => {
+  
+  const deckList = decks.map((deck, index) => {
     return(
       <div className="border border-solid" key={index}>
         <DeckView deck={deck} removeDeck={removeDeck} />
         </div>
-      )
-    });
-  }
+    )
+});
+  
+  
 
 //message based on number of decks
   function CreateMessage() {
@@ -37,7 +36,7 @@ function Decks({decks, removeDeck, ids}){
       <Link to="decks/new">
          <button>Create Deck</button>
       </Link>
-      <DeckList />
+      {deckList}
       <CreateMessage />
     </div>
     )

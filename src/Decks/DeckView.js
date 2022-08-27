@@ -21,13 +21,13 @@ if (pathname === "/"){
     </>
 } else if (pathname.includes("/decks")){
     deckButtons = <> 
-    <Link to={`decks/${id}/edit`}>
+    <Link to={`${id}/edit`}>
         <button>Edit</button>
     </Link>
-    <Link to={`decks/${id}/study`}>
+    <Link to={`${id}/study`}>
         <button>Study</button>
     </Link> 
-    <Link to={`decks/${id}/cards/new`}>
+    <Link to={`${id}/cards/new`}>
         <button>Add Cards</button>
     </Link>   
     </> 
