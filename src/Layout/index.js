@@ -12,7 +12,6 @@ function Layout() {
 
 // Set Loading state to render loading
 const [loaded, setLoaded] = useState(false);
-console.log(loaded);
 
 useEffect(() => {
  setTimeout(() => setLoaded(true),500 );
@@ -27,12 +26,23 @@ useEffect(() => {
   }
   
 
-//function to add deck to list of decks 
+// add deck to list of decks 
 const addDeck = (deckToAdd) => {
   setDecks([...decks, deckToAdd])
 }
 
-
+//edit deck in list of decks
+const editDeck = (deckToEdit) => {
+  setDecks(decks.map((deck) => {
+    if (deckToEdit.id === deck.id){
+        return { 
+        ...deck, 
+        name: deckToEdit.name, 
+        description: deckToEdit.description 
+      };
+    } return deck;
+  }));
+};
 
 //Pull in data via API call 
 
@@ -49,8 +59,9 @@ useEffect(() => {
     return () => controller.abort();
 },[])
 
+console.log("deck state: ", decks);
+
 //grab deck ids
-console.log("index decks:", decks)
 const ids = decks.map((deck) => deck.id);
 
 if (!loaded){
@@ -75,7 +86,7 @@ return (
           <CreateDeck addDeck={addDeck} />
         </Route>
         <Route path="/decks/:deckId">
-          <Deck ids={ids} removeDeck={removeDeck} />
+          <Deck ids={ids} editDeck={editDeck} removeDeck={removeDeck} />
         </Route>
         <Route>
           <NotFound />

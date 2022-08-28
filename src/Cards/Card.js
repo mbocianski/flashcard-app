@@ -1,10 +1,9 @@
 import React from "react";
 import DeleteCard from "./DeleteCard";
-import {Link, Route, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-function Card ({card: {id, front, back, deckId}, removeCard}){
+function Card ({ card: {id, front, back, deckId}, removeCard}){
 
-    const {pathname} = useLocation();
     return(
         <>
             <table>
@@ -15,7 +14,7 @@ function Card ({card: {id, front, back, deckId}, removeCard}){
                     </tr>
                 </tbody>
             </table>
-            <Link to={`${pathname}/cards/${id}/edit`}>
+            <Link to={`/${deckId}/cards/${id}/edit`}>
                 <button>Edit</button>
             </Link>
             <DeleteCard removeCard={removeCard} cardId={id} />

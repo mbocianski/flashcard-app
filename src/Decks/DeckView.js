@@ -1,8 +1,7 @@
 import React from "react";
 import DeleteDeck from "./DeleteDeck";
 import {useLocation, Link} from "react-router-dom"
-import NotFound from "../Layout/NotFound";
-//import {useEffect} from "react";
+
 
 
 //extracts keys from each deck and builds them into an info card

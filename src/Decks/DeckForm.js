@@ -1,17 +1,15 @@
 import React from "react";
 import {useState} from "react";
-import {createDeck} from "../utils/api/index"
+import {createDeck, updateDeck} from "../utils/api/index"
 import {Link, useHistory} from "react-router-dom"
 
 
-function CreateDeckForm({addDeck}){
+function DeckForm({formFunction, deck, addDeck, editDeck}){
 
-    const initialFormData = {
-        name: "",
-        description: ""
-    }
+    const initialFormData = deck;
 
-    const [formData, setFormData] = useState({...initialFormData});
+    const [formData, setFormData] = useState(initialFormData);
+
 
     //Update form as you type via change Handler
     const changeHandler = ({target}) => {
@@ -21,22 +19,36 @@ function CreateDeckForm({addDeck}){
             });
     };
 
-    //Send new deck to API and return newly deck data
-    async function newDeck(formData) {
+   
+
+    const history = useHistory();
+
+
+     //Send new deck to API and return newly deck data
+     async function newDeck(formData) {
         const deckToAdd = await createDeck(formData);
         await addDeck(deckToAdd)
-        history.push(`/decks/${deckToAdd.id}`)
+        await history.push(`/decks/${deckToAdd.id}`)
+   
     }
 
-    let history = useHistory();
+    //Send updted deck to API and update decks state with editDeck
+    async function editDeckTasks(formData) {
+        await updateDeck(formData);
+        await editDeck(formData)
+        await history.push(`/decks/${deck.id}`);
+    }       
 
-    //On submit, call newDeck() and send data to addDeck function to update state.
+     //On submit, call newDeck() or Edit Deck() based on the formfunction, 
+     // and then reset the form.
     const submitHandler = (event) => {
+        const controller = new AbortController();
         event.preventDefault();
-        newDeck(formData);
+        if (formFunction === "create") newDeck(formData);
+        if (formFunction === "edit") editDeckTasks(formData);
         setFormData({...initialFormData});
+        return () => controller.abort();
 
-        
     }
 
     return (
@@ -48,6 +60,7 @@ function CreateDeckForm({addDeck}){
                 value={formData.name}
                 type="text"
                 onChange={changeHandler}
+                placeholder="Enter a name"
                 required={true} />
             </label>
             <label htmlFor="description">
@@ -58,6 +71,7 @@ function CreateDeckForm({addDeck}){
                 type="text"
                 value={formData.description}
                 onChange={changeHandler}
+                placeholder="enter a description"
                 required={true} />
             </label>
             <button type="submit">Submit</button>
@@ -69,4 +83,4 @@ function CreateDeckForm({addDeck}){
 }
 
 
-export default CreateDeckForm;
+export default DeckForm;

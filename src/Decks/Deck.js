@@ -1,14 +1,16 @@
 import React from "react";
 import { readDeck } from "../utils/api/index";
-import { useParams, Switch, Route, Link, Path } from "react-router-dom";
+import { useParams, Switch, Route, useRouteMatch } from "react-router-dom";
 import DeckView from "./DeckView";
 import Navbar from "../Common/Navbar";
 import { useEffect, useState } from "react";
 import NotFound from "../Layout/NotFound";
 import Cards from "../Cards/Cards";
+import EditDeck from "./EditDeck";
 
 
-function Deck({ids, removeDeck}) {
+
+function Deck({ids, removeDeck, editDeck}) {
 
   //Sets state for deck
   const [deck, setDeck] = useState([]);
@@ -46,14 +48,26 @@ function Deck({ids, removeDeck}) {
       return () => controller.abort();
     },[]);
 
+    // for routing
+    const match = useRouteMatch();
+
 //uses DeckView to render deck information if deck Id exist
 if (ids.includes(parseInt(deckId))){
         return (
         <>
             <Navbar />
-            <DeckView deck={deck} removeDeck={removeDeck} />
-            <h2>Cards</h2>
-            <Cards deck={deck} removeCard={removeCard} />
+            <Switch>
+              <Route exact path={match.path}>
+                <DeckView deck={deck} removeDeck={removeDeck} />
+                <h2>Cards</h2>
+                <Cards deck={deck} removeCard={removeCard} />
+              </Route>
+              <Route path={`${match.path}/edit`}>
+              <EditDeck
+                  deck={deck}
+                  editDeck={editDeck} />
+              </Route>
+            </Switch>
         </>
         );
     }

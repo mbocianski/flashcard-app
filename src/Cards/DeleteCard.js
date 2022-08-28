@@ -11,7 +11,7 @@ function DeleteCard ({removeCard, cardId}) {
 
     //Updates Api and State for the card
     const deleteCardHandler = async () => {
-        if (window.confirm('Do you really want to delete this card? This action is permanant')){
+        if (window.confirm('Do you really want to delete this card? This action is permanant.')){
             removeCard(cardId);
             await deleteCard(cardId);
             console.log("Deleted Card # ", cardId)

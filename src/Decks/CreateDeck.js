@@ -1,16 +1,22 @@
 import React from "react";
-import Navbar from "../Common/Navbar";
-import {Switch, Route} from "react-router-dom"
-import CreateDeckForm from "./CreateDeckForm";
+import DeckForm from "./DeckForm";
+
 
 function CreateDeck({addDeck}){
 
- return (
-    <>
-            <Navbar />
-            <CreateDeckForm addDeck={addDeck} />
-    </>
- );
-};
+    const deck = {
+        name: "",
+        description: ""
+    }
 
+    return (
+        <>
+        <DeckForm 
+            deck={deck} 
+            formFunction="create"
+            addDeck={addDeck} />
+        </>
+    )
+
+}
 export default CreateDeck;

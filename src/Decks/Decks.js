@@ -14,7 +14,8 @@ function Decks({decks, removeDeck, ids}){
   const deckList = decks.map((deck, index) => {
     return(
       <div className="border border-solid" key={index}>
-        <DeckView deck={deck} removeDeck={removeDeck} />
+        <DeckView deck={deck} 
+                  removeDeck={removeDeck} />
         </div>
     )
 });
