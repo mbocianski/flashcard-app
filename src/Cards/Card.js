@@ -14,7 +14,7 @@ function Card ({ card: {id, front, back, deckId}, removeCard}){
                     </tr>
                 </tbody>
             </table>
-            <Link to={`/${deckId}/cards/${id}/edit`}>
+            <Link to={`/decks/${deckId}/cards/${id}/edit`}>
                 <button>Edit</button>
             </Link>
             <DeleteCard removeCard={removeCard} cardId={id} />

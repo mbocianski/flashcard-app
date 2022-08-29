@@ -28,7 +28,7 @@ function DeckForm({formFunction, deck, addDeck, editDeck}){
      async function newDeck(formData) {
         const deckToAdd = await createDeck(formData);
         await addDeck(deckToAdd)
-        await history.push(`/decks/${deckToAdd.id}`)
+        history.push(`/decks/${deckToAdd.id}`)
    
     }
 
@@ -36,7 +36,7 @@ function DeckForm({formFunction, deck, addDeck, editDeck}){
     async function editDeckTasks(formData) {
         await updateDeck(formData);
         await editDeck(formData)
-        await history.push(`/decks/${deck.id}`);
+        history.push(`/decks/${deck.id}`);
     }       
 
      //On submit, call newDeck() or Edit Deck() based on the formfunction, 

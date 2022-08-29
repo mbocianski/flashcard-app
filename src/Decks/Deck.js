@@ -2,11 +2,14 @@ import React from "react";
 import { readDeck } from "../utils/api/index";
 import { useParams, Switch, Route, useRouteMatch } from "react-router-dom";
 import DeckView from "./DeckView";
-import Navbar from "../Common/Navbar";
 import { useEffect, useState } from "react";
 import NotFound from "../Layout/NotFound";
 import Cards from "../Cards/Cards";
 import EditDeck from "./EditDeck";
+import NavBar from "../Common/NavBar";
+import CardForm from "../Cards/CardForm";
+import EditCard from "../Cards/EditCard";
+import StudyDeck from "./StudyDeck";
 
 
 
@@ -26,12 +29,25 @@ function Deck({ids, removeDeck, editDeck}) {
     setCards([...cards, cardToAdd])
   }
 
+  //prop for updating a card in a deck
+  const editCard = (cardToEdit) =>{
+    setCards(cards.map((card)=> {
+      if (cardToEdit.id === card.id){
+        return { 
+        ...card, 
+        front: cardToEdit.front, 
+        back: cardToEdit.back
+      };
+    } 
+    return card})
+    );
+  }
+
   //prop for deleting cards from deck
   const removeCard = (cardId) => {
     setCards(cards.filter((card) => card.id !== cardId));
   }
 
-  console.log("Cards: ", cards);
 
   //uses fetchData to return deck info using deckId (from params)
     useEffect(() => {
@@ -46,28 +62,42 @@ function Deck({ids, removeDeck, editDeck}) {
       fetchData();
 
       return () => controller.abort();
-    },[]);
+    },[deckId]);
 
-    // for routing
-    const match = useRouteMatch();
+   const blankCard = {
+     front: "",
+     back: ""
+   }
+
+   // used in routing below
+  const {path} = useRouteMatch();
 
 //uses DeckView to render deck information if deck Id exist
 if (ids.includes(parseInt(deckId))){
         return (
         <>
-            <Navbar />
-            <Switch>
-              <Route exact path={match.path}>
-                <DeckView deck={deck} removeDeck={removeDeck} />
-                <h2>Cards</h2>
-                <Cards deck={deck} removeCard={removeCard} />
-              </Route>
-              <Route path={`${match.path}/edit`}>
+          <NavBar deck={deck} />
+          <Switch>
+            <Route exact path="/decks/:deckId">
+              <DeckView deck={deck} removeDeck={removeDeck} />
+              <h2>Cards</h2>
+              <Cards deck={deck} removeCard={removeCard} />
+            </Route>
+            <Route path={`${path}/edit`}>
               <EditDeck
                   deck={deck}
                   editDeck={editDeck} />
-              </Route>
-            </Switch>
+            </Route>
+            <Route exact path={`${path}/cards/new`}>
+              <CardForm deck={deck} formFunction="new" addCard={addCard} card={blankCard} />
+            </Route>
+            <Route path={`${path}/cards/:cardId/edit`}>
+              <EditCard deck={deck} editCard={editCard} />
+            </Route>
+            <Route path={`${path}/study`}>
+              <StudyDeck deck={deck} />
+            </Route>
+          </Switch>
         </>
         );
     }

@@ -1,8 +1,11 @@
 import React from "react";
 import DeckForm from "./DeckForm";
+import NavBar from "../Common/NavBar";
 
 
 function CreateDeck({addDeck}){
+
+   
 
     const deck = {
         name: "",
@@ -11,6 +14,7 @@ function CreateDeck({addDeck}){
 
     return (
         <>
+        <NavBar/>
         <DeckForm 
             deck={deck} 
             formFunction="create"
