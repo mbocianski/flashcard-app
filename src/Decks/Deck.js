@@ -11,10 +11,7 @@ import CardForm from "../Cards/CardForm";
 import EditCard from "../Cards/EditCard";
 import StudyDeck from "./StudyDeck";
 
-
-
-function Deck({ids, removeDeck, editDeck}) {
-
+function Deck({ ids, removeDeck, editDeck }) {
   //Sets state for deck
   const [deck, setDeck] = useState([]);
 
@@ -26,83 +23,87 @@ function Deck({ids, removeDeck, editDeck}) {
 
   //prop for adding cards to the deck
   const addCard = (cardToAdd) => {
-    setCards([...cards, cardToAdd])
-  }
+    setCards([...cards, cardToAdd]);
+  };
 
   //prop for updating a card in a deck
-  const editCard = (cardToEdit) =>{
-    setCards(cards.map((card)=> {
-      if (cardToEdit.id === card.id){
-        return { 
-        ...card, 
-        front: cardToEdit.front, 
-        back: cardToEdit.back
-      };
-    } 
-    return card})
+  const editCard = (cardToEdit) => {
+    setCards(
+      cards.map((card) => {
+        if (cardToEdit.id === card.id) {
+          return {
+            ...card,
+            front: cardToEdit.front,
+            back: cardToEdit.back,
+          };
+        }
+        return card;
+      })
     );
-  }
+  };
 
   //prop for deleting cards from deck
   const removeCard = (cardId) => {
     setCards(cards.filter((card) => card.id !== cardId));
-  }
-
+  };
 
   //uses fetchData to return deck info using deckId (from params)
-    useEffect(() => {
-      setDeck([]);
-      const controller = new AbortController();
-      async function fetchData() {
-        const data = await readDeck(deckId, controller.signal);
-        setDeck(data);
-        setCards(data.cards);
-      }
-
-      fetchData();
-
-      return () => controller.abort();
-    },[deckId]);
-
-   const blankCard = {
-     front: "",
-     back: ""
-   }
-
-   // used in routing below
-  const {path} = useRouteMatch();
-
-//uses DeckView to render deck information if deck Id exist
-if (ids.includes(parseInt(deckId))){
-        return (
-        <>
-          <NavBar deck={deck} />
-          <Switch>
-            <Route exact path="/decks/:deckId">
-              <DeckView deck={deck} removeDeck={removeDeck} />
-              <h2>Cards</h2>
-              <Cards deck={deck} removeCard={removeCard} />
-            </Route>
-            <Route path={`${path}/edit`}>
-              <EditDeck
-                  deck={deck}
-                  editDeck={editDeck} />
-            </Route>
-            <Route exact path={`${path}/cards/new`}>
-              <CardForm deck={deck} formFunction="new" addCard={addCard} card={blankCard} />
-            </Route>
-            <Route path={`${path}/cards/:cardId/edit`}>
-              <EditCard deck={deck} editCard={editCard} />
-            </Route>
-            <Route path={`${path}/study`}>
-              <StudyDeck deck={deck} />
-            </Route>
-          </Switch>
-        </>
-        );
+  useEffect(() => {
+    setDeck([]);
+    const controller = new AbortController();
+    async function fetchData() {
+      const data = await readDeck(deckId, controller.signal);
+      setDeck(data);
+      setCards(data.cards);
     }
 
-return <NotFound />
+    fetchData();
+
+    return () => controller.abort();
+  }, [deckId]);
+
+  const blankCard = {
+    front: "",
+    back: "",
+  };
+
+  // used in routing below
+  const { path } = useRouteMatch();
+
+  //uses DeckView to render deck information if deck Id exist
+  if (ids.includes(parseInt(deckId))) {
+    return (
+      <>
+        <NavBar deck={deck} />
+        <Switch>
+          <Route exact path="/decks/:deckId">
+            <DeckView deck={deck} removeDeck={removeDeck} />
+            <h2>Cards</h2>
+            <Cards deck={deck} removeCard={removeCard} />
+          </Route>
+          <Route path={`${path}/edit`}>
+            <EditDeck deck={deck} editDeck={editDeck} />
+          </Route>
+          <Route exact path={`${path}/cards/new`}>
+            <CardForm
+              deck={deck}
+              formFunction="new"
+              addCard={addCard}
+              card={blankCard}
+            />
+          </Route>
+          <Route path={`${path}/cards/:cardId/edit`}>
+            <EditCard deck={deck} editCard={editCard} />
+          </Route>
+          <Route path={`${path}/study`}>
+            <StudyDeck deck={deck} />
+          </Route>
+        </Switch>
+      </>
+    );
+  }
+
+  return <NotFound />;
 }
 
 export default Deck;
