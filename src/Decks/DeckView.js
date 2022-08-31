@@ -2,10 +2,13 @@ import React from "react";
 import DeleteDeck from "./DeleteDeck";
 import { useLocation, Link } from "react-router-dom";
 
+
 //extracts keys from each deck and builds them into an info card
 function DeckView({ deck: { name, id, description, cards = [] }, removeDeck }) {
   const { pathname } = useLocation();
   const cardCount = cards.length;
+
+
 
   // shows view and study for home path
   let deckButtons;

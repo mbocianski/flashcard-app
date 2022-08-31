@@ -10,10 +10,14 @@ import NavBar from "../Common/NavBar";
 import CardForm from "../Cards/CardForm";
 import EditCard from "../Cards/EditCard";
 import StudyDeck from "./StudyDeck";
+import Loading from "../Common/Loading";
 
 function Deck({ ids, removeDeck, editDeck }) {
   //Sets state for deck
   const [deck, setDeck] = useState([]);
+
+  // Set Loading state to render loading
+  const [loaded, setLoaded] = useState(false);
 
   //gets deckId for routing below
   const { deckId } = useParams();
@@ -55,6 +59,7 @@ function Deck({ ids, removeDeck, editDeck }) {
       const data = await readDeck(deckId, controller.signal);
       setDeck(data);
       setCards(data.cards);
+      setLoaded(true)
     }
 
     fetchData();
@@ -69,6 +74,8 @@ function Deck({ ids, removeDeck, editDeck }) {
 
   // used in routing below
   const { path } = useRouteMatch();
+
+  if (!loaded) return <Loading />;
 
   //uses DeckView to render deck information if deck Id exist
   if (ids.includes(parseInt(deckId))) {

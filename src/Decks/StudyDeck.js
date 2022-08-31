@@ -3,11 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { readDeck } from "..//utils/api/index";
 import StudyReader from "./StudyReader";
+import Loading from "../Common/Loading";
 
 function StudyDeck() {
   //grab deckId from params so function calls regardless of props passed
   const { deckId } = useParams();
   const [deck, setDeck] = useState([]);
+
+
 
  //set state for deck
   useEffect(() => {
@@ -25,8 +28,12 @@ function StudyDeck() {
   let cardCount;
   !deck.cards ? (cardCount = 0) : (cardCount = deck.cards.length);
 
+
 //Deck with cards less than 3 will display not enough cards and prompt user to add some.
-  if (cardCount < 3 || !cardCount) {
+  if (cardCount < 3) {
+
+    if (!cardCount) return <Loading />;
+    
     return (
       <>
         <h2>{`Study: ${deck.name}`}</h2>
