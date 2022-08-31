@@ -13,9 +13,6 @@ function Layout() {
 // Set Loading state to render loading
 const [loaded, setLoaded] = useState(false);
 
-useEffect(() => {
- setTimeout(() => setLoaded(true),500 );
-});
 
 //Set deck state
   const [decks, setDecks] = useState([]);
@@ -53,6 +50,7 @@ useEffect(() => {
     async function fetchData() {
         const data = await listDecks(controller.signal)
         setDecks(data)};
+        setLoaded(true)
     
     fetchData();
     

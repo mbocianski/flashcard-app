@@ -26,7 +26,7 @@ function Decks({ decks, removeDeck, ids }) {
 
   return (
     <div>
-      <Link to="decks/new">
+      <Link to="/decks/new">
         <button>Create Deck</button>
       </Link>
       {deckList}

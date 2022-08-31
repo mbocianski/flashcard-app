@@ -7,16 +7,16 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 //one common navbar that uses various paths to populate appropriate links and navigation
-function NavBar({ deck }) {
+function NavBar({ deck=[] }) {
   const { path } = useRouteMatch();
   const params = useParams();
   const { deckId, cardId } = useParams();
-
+console.log("navdeck: ", deck)
   return (
     <nav>
       <Link to="/">Home</Link>
       <Switch>
-        <Route path="/decks/new">
+        <Route exact path="/decks/new">
           <p> / Create Deck</p>
         </Route>
         <Route exact path="/decks/:deckId">
