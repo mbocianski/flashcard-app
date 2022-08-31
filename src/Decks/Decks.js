@@ -91,7 +91,7 @@ function Decks() {
   return (
     <Switch>
       <Route exact path="/">
-      <Link to="decks/new">
+      <Link to="/decks/new">
         <button>Create Deck</button>
       </Link>
         {deckList}

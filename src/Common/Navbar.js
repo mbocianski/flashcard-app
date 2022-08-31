@@ -7,7 +7,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 //one common navbar that uses various paths to populate appropriate links and navigation
-function NavBar({ deck }) {
+function NavBar({ deck=[] }) {
   const { path } = useRouteMatch();
   const params = useParams();
   const { deckId, cardId } = useParams();
