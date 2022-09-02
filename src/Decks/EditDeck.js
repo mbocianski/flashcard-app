@@ -1,12 +1,12 @@
 import React from "react";
 import DeckForm from "./DeckForm";
 
-function EditDeck({ deck, editDeck }) {
+function EditDeck({ editDeck }) {
 // simply provides editDeck function and edit prop to DeckForm 
   return (
-    <>
-      <DeckForm deck={deck} editDeck={editDeck} formFunction="edit" />
-    </>
+    <div>
+      <DeckForm editDeck={editDeck} formFunction="edit" />
+    </div>
   );
 }
 

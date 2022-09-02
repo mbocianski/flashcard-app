@@ -21,7 +21,10 @@ function EditCard({ editCard, deck }) {
   }, [cardId]);
 // passes card data to the cardform to prefill data
   return (
-    <CardForm card={card} deck={deck} formFunction="edit" editCard={editCard} />
+    <div>
+      <h2>Edit Card</h2>
+      <CardForm card={card} deck={deck} formFunction="edit" editCard={editCard} />
+    </div>
   );
 }
 

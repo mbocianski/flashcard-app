@@ -3,15 +3,11 @@ import {
   Switch,
   Link,
   Route,
-  useParams,
-  useRouteMatch,
+  useParams
 } from "react-router-dom";
 //one common navbar that uses various paths to populate appropriate links and navigation
 function NavBar({ deck=[] }) {
-  const { path } = useRouteMatch();
-  const params = useParams();
   const { deckId, cardId } = useParams();
-console.log("navdeck: ", deck)
   return (
     <nav>
       <Link to="/">Home</Link>
@@ -22,22 +18,22 @@ console.log("navdeck: ", deck)
         <Route exact path="/decks/:deckId">
           <p> / {deck.name} </p>
         </Route>
-        <Route path={`${path}/edit`}>
+        <Route path={`/decks/:deckId/edit`}>
           <p> / </p>
           <Link to={`/decks/${deckId}`}>{deck.name}</Link>
           <p> / edit</p>
         </Route>
-        <Route path={`${path}/cards/new`}>
+        <Route path={`/decks/:deckId/cards/new`}>
           <p> / </p>
           <Link to={`/decks/${deckId}`}>{deck.name}</Link>
           <p> / Add Card</p>
         </Route>
-        <Route path={`${path}/cards/:cardId/edit`}>
+        <Route path={`/decks/:deckId/cards/:cardId/edit`}>
           <p> / </p>
           <Link to={`/decks/${deckId}`}>Deck: {deck.name}</Link>
           <p> / Edit Card {cardId}</p>
         </Route>
-        <Route path={`${path}/study`}>
+        <Route path={`/decks/:deckId/study`}>
           <p> / </p>
           <Link to={`/decks/${deckId}`}>{deck.name}</Link>
           <p> / Study {cardId}</p>

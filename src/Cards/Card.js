@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // removeCard gets passed to delete button
 function Card({ card: { id, front, back, deckId }, removeCard }) {
   return (
-    <>
+    <div>
       <table>
         <tbody>
           <tr>
@@ -19,7 +19,7 @@ function Card({ card: { id, front, back, deckId }, removeCard }) {
         <button>Edit</button>
       </Link>
       <DeleteCard removeCard={removeCard} cardId={id} />
-    </>
+    </div>
   );
 }
 
