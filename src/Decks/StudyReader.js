@@ -12,7 +12,7 @@ function StudyReader({ deck: { cards }, count }) {
 
     // initialize display and buttons
   let cardDisplay;
-  let buttons = <></>;
+  let buttons;
 
   // flips the card when flip button clicked
   const flipClickHandler = () => setCardFront(!cardFront);
@@ -47,28 +47,28 @@ function StudyReader({ deck: { cards }, count }) {
   if (cardFront) {
     cardDisplay = cards[cardNumber - 1].front;
     buttons = (
-      <>
+      <div>
         <button onClick={flipClickHandler}>Flip</button>
-      </>
+      </div>
     );
   }
   // use cardNumber - 1 since first array of index = 0
   if (!cardFront) {
     cardDisplay = cards[cardNumber - 1].back;
     buttons = (
-      <>
+      <div>
         <button onClick={flipClickHandler}>Flip</button>
         <button onClick={nextClickHandler}>Next</button>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div>
       <h3>{`Card ${cardNumber} of ${count}`}</h3>
       <p>{cardDisplay}</p>
       {buttons}
-    </>
+    </div>
   );
 }
 

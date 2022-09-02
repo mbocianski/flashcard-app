@@ -29,34 +29,41 @@ function StudyDeck() {
   !deck.cards ? (cardCount = 0) : (cardCount = deck.cards.length);
 
 
-//Deck with cards less than 3 will display not enough cards and prompt user to add some.
-  if (cardCount < 3) {
+//Shows message not enough cards and prompt to add cards
+function NotEnoughCards(){
+  return (
+    <div>
+       <h2>{`Study: ${deck.name}`}</h2>
+      <div className="border border-solid">
+        <h3>Not Enough Cards.</h3>
+        <p>{`You need at least 3 cards to study. 
+              There are ${cardCount} cards in this deck.`}</p>
+        <Link to={`/decks/${deck.id}/cards/new`}>
+          <button>Add Cards</button>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
-    if (!cardCount) return <Loading />;
-    
-    return (
-      <>
-        <h2>{`Study: ${deck.name}`}</h2>
-        <div className="border border-solid">
-          <h3>Not Enough Cards.</h3>
-          <p>{`You need at least 3 cards to study. 
-                There are ${cardCount} cards in this deck.`}</p>
-          <Link to={`/decks/${deck.id}/cards/new`}>
-            <button>Add Cards</button>
-          </Link>
-        </div>
-      </>
-    );
+
+//Deck with cards less than 3 will render NotEnoughCards and loading while cardCount renders
+  if (cardCount < 3 && deck) {
+    return(
+    <div>
+      {!deck ? <Loading /> : <NotEnoughCards />}
+      </div>
+    )
   }
 
   //If enough cards are available study screen will render
   return (
-    <>
+    <div>
       <h2>{`Study: ${deck.name}`}</h2>
       <div className="border border-solid">
-        <StudyReader deck={deck} count={cardCount} />
+      {!deck ? <Loading /> :<StudyReader deck={deck} count={cardCount} />}
       </div>
-    </>
+    </div>
   );
 }
 

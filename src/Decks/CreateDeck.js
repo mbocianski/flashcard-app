@@ -1,25 +1,19 @@
 import React from "react";
 import DeckForm from "./DeckForm";
-import NavBar from "../Common/NavBar";
 
 
 function CreateDeck({addDeck}){
 
    
 
-    const deck = {
-        name: "",
-        description: ""
-    }
+   
 
     return (
-        <>
-        <NavBar/>
+        <div>
         <DeckForm 
-            deck={deck} 
             formFunction="create"
             addDeck={addDeck} />
-        </>
+        </div>
     )
 
 }

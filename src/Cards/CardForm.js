@@ -1,13 +1,30 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { createCard, updateCard } from "../utils/api";
-import { Link, useHistory } from "react-router-dom";
+import { createCard, updateCard, readDeck } from "../utils/api";
+import { Link, useHistory, useParams } from "react-router-dom";
 
-function CardForm({ card, deck, formFunction, addCard, editCard }) {
+function CardForm({ card, formFunction, addCard, editCard }) {
   // sets initial form as card data from either new or edit. Edits pulls in the card to be edited
   const initialFormData = card;
   const [formData, setFormData] = useState(initialFormData);
   const history = useHistory();
+  const [deck, setDeck] = useState([])
+  const {deckId} = useParams();
+
+ //uses fetchData to return deck info using deckId (from params)
+ useEffect(() => {
+  setDeck([]);
+  const controller = new AbortController();
+  async function fetchData() {
+    const data = await readDeck(deckId, controller.signal);
+    setDeck(data);;
+  }
+
+  fetchData();
+
+  return () => controller.abort();
+}, [deckId]);
+
 
   //makes sure page is rerendered after hitting Save
   useEffect(() => {
@@ -20,14 +37,14 @@ function CardForm({ card, deck, formFunction, addCard, editCard }) {
   };
   //adds a new card to via API and then updates state
   async function newCard(formData) {
-    const CardToAdd = await createCard(deck.id, formData);
+    const CardToAdd = await createCard(deckId, formData);
     await addCard(CardToAdd);
   }
   // uses the updateCard api and edit Card to update state
   async function editCardInfo(formData) {
     await updateCard(formData);
     await editCard(formData);
-    history.push(`/decks/${deck.id}`);
+    history.push(`/decks/${deckId}`);
   }
 
   // depending on the how the form is used will call the resprective functon
@@ -39,36 +56,36 @@ function CardForm({ card, deck, formFunction, addCard, editCard }) {
   };
 
   // dynamic headers and buttons based on the new or edit case of the form
-  let header;
+  // let header;
   let buttons;
 
   if (formFunction === "new") {
-    header = <h2>{`${deck.name}: Add Card`}</h2>;
+
     buttons = (
-      <>
-        <Link to={`/decks/${deck.id}`}>
+      <div>
+        <Link to={`/decks/${deckId}`}>
           <button>Done</button>
         </Link>
         <button type="submit">Save</button>
-      </>
+      </div>
     );
   }
 
   if (formFunction === "edit") {
-    header = <h2>Edit Card</h2>;
+
     buttons = (
-      <>
+      <div>
         <Link to={`/decks/${deck.id}`}>
           <button>Cancel</button>
         </Link>
         <button type="submit">Submit</button>
-      </>
+      </div>
     );
   }
 
+ 
+
   return (
-    <>
-      {header}
       <form onSubmit={submitHandler}>
         <label htmlFor="front">
           Front
@@ -94,7 +111,6 @@ function CardForm({ card, deck, formFunction, addCard, editCard }) {
         </label>
         {buttons}
       </form>
-    </>
   );
 }
 

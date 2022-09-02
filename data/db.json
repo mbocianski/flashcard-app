@@ -49,6 +49,11 @@
       "name": "asdfasdf",
       "description": "asdfasdffdas",
       "id": 13
+    },
+    {
+      "name": "best tesr",
+      "description": "new testy",
+      "id": 14
     }
   ],
   "cards": [
@@ -100,6 +105,66 @@
       "back": "back of card",
       "deckId": 2,
       "id": 13
+    },
+    {
+      "front": "new card front",
+      "back": "new card back",
+      "deckId": 1,
+      "id": 14
+    },
+    {
+      "front": "another one",
+      "back": "the best",
+      "deckId": 1,
+      "id": 15
+    },
+    {
+      "front": "Let's submit one",
+      "back": "Let's submit two",
+      "deckId": 1,
+      "id": 16
+    },
+    {
+      "front": "Submit this",
+      "back": "submit that",
+      "deckId": 1,
+      "id": 17
+    },
+    {
+      "front": "api test",
+      "back": "api test",
+      "deckId": 1,
+      "id": 18
+    },
+    {
+      "front": "this is done",
+      "back": "this is done",
+      "deckId": 1,
+      "id": 19
+    },
+    {
+      "front": "more",
+      "back": "more",
+      "deckId": 1,
+      "id": 20
+    },
+    {
+      "front": "12346",
+      "back": "76543",
+      "deckId": 1,
+      "id": 21
+    },
+    {
+      "front": "this is a card",
+      "back": "this is another card",
+      "deckId": 1,
+      "id": 22
+    },
+    {
+      "front": "fadsfa",
+      "back": "asdfasd",
+      "deckId": 1,
+      "id": 23
     }
   ]
 }

@@ -14,19 +14,19 @@ function DeckView({ deck: { name, id, description, cards = [] }, removeDeck }) {
   let deckButtons;
   if (pathname === "/") {
     deckButtons = (
-      <>
+      <div>
         <Link to={`decks/${id}`}>
           <button>View</button>
         </Link>
         <Link to={`/decks/${id}/study`}>
           <button>Study</button>
         </Link>
-      </>
+      </div>
     );
     // shows edit, study, and add cards if viewing the deck itself
   } else if (pathname.includes("/decks")) {
     deckButtons = (
-      <>
+      <div>
         <Link to={`${id}/edit`}>
           <button>Edit</button>
         </Link>
@@ -36,7 +36,7 @@ function DeckView({ deck: { name, id, description, cards = [] }, removeDeck }) {
         <Link to={`${id}/cards/new`}>
           <button>Add Cards</button>
         </Link>
-      </>
+      </div>
     );
   }
   return (

@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, Route, Switch, Path } from "react-router-dom";
-import DeckView from "./DeckView";
+import { Link, Route, Switch} from "react-router-dom";
 import { listDecks } from "../utils/api/index";
 import CreateDeck from "../Decks/CreateDeck";
 import Deck from "../Decks/Deck";
 import Loading from "../Common/Loading";
+import DeckView from "./DeckView";
+import NotFound from "../Layout/NotFound";
 
 function Decks() {
   // Set Loading state to render loading
@@ -73,39 +74,29 @@ function Decks() {
 
   //message based on number of decks
   function CreateMessage() {
-    let message = "";
-    if (ids.length < 1) {
-      message = <h2>No decks exist. Click "Create Deck" to get started!</h2>;
-    }
-    return message;
+     return <h2>No decks exist. Click "Create Deck" to get started!</h2>;
   }
 
-  if (!loaded) {
     return (
-      <>
-        <Loading />
-      </>
+      <Switch>
+        <Route exact path="/">
+        <Link to="/decks/new">
+          <button>Create Deck</button>
+        </Link>
+          {!loaded ? <Loading /> : decks.length ? deckList : <CreateMessage/>}
+        </Route>
+        <Route path="/decks/new">
+          <CreateDeck addDeck={addDeck} />
+        </Route>
+        <Route path="/decks/:deckId">
+         {!loaded ? <Loading />  :<Deck ids={ids} editDeck={editDeck} removeDeck={removeDeck} /> }
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
     );
-  }
-
-  return (
-    <Switch>
-      <Route exact path="/">
-      <Link to="/decks/new">
-        <button>Create Deck</button>
-      </Link>
-        {deckList}
-        <CreateMessage />
-      </Route>
-      <Route path="/decks/new">
-        <CreateDeck addDeck={addDeck} />
-      </Route>
-      <Route path="/decks/:deckId">
-        <Deck ids={ids} editDeck={editDeck} removeDeck={removeDeck} />
-      </Route>
-      
-    </Switch>
-  );
+   
 }
 
 export default Decks;
