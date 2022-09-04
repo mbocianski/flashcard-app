@@ -5,38 +5,36 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import NavBar from "../Common/NavBar";
 import Loading from "../Common/Loading";
 
-function DeckForm({ formFunction, addDeck, editDeck }) {
-  
+function DeckForm({ formFunction, addDeck, editDeck, deck }) {
   // for new deck.
   const initialFormData = {
     name: "",
-    description: ""
-}
+    description: "",
+  };
 
-const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(true);
 
-  const {deckId} = useParams();
+  const { deckId } = useParams();
   const [formData, setFormData] = useState(initialFormData);
 
-//uses fetchData to return deck info using deckId (from params)
-useEffect(() => {
-  const controller = new AbortController();
-  
-  if (formFunction === "edit") {
-    setLoaded(false);
-    async function fetchData() {
-      const data = await readDeck(deckId, controller.signal);
-      setFormData(data);
-      setLoaded(true);
+  //uses fetchData to return deck info using deckId (from params)
+  useEffect(() => {
+    const controller = new AbortController();
+
+    if (formFunction === "edit") {
+      setLoaded(false);
+      async function fetchData() {
+        const data = await readDeck(deckId, controller.signal);
+        console.log("data:", data);
+        setFormData(data);
+        setLoaded(true);
+      }
+
+      fetchData();
     }
 
-    fetchData();
-  }
-
-  return () => controller.abort();
-}, []);
-
-
+    return () => controller.abort();
+  }, [deckId, formFunction]);
 
   //Update form as you type via change Handler
   const changeHandler = ({ target }) => {
@@ -49,13 +47,14 @@ useEffect(() => {
   const history = useHistory();
 
   let header;
- 
+
   if (formFunction === "create") {
-    header = <h2>Create Deck</h2>}
+    header = <h2>Create Deck</h2>;
+  }
 
-    if (formFunction === "edit") {
-    header = <h2>Edit Deck</h2>}
-
+  if (formFunction === "edit") {
+    header = <h2>Edit Deck</h2>;
+  }
 
   //Send new deck to API and return newly deck data
   async function newDeck(formData) {
@@ -82,43 +81,52 @@ useEffect(() => {
     return () => controller.abort();
   };
 
-  if (!loaded){
-    return <Loading />
+  if (!loaded) {
+    return <Loading />;
   }
 
   return (
-    
     <div>
-    <NavBar />
-    {header}
-    <form onSubmit={submitHandler}>
-      <label htmlFor="name">
-        Name
-        <input
-          id="name"
-          name="name"
-          value={formData.name}
-          type="text"
-          onChange={changeHandler}
-          required={true}
-        />
-      </label>
-      <label htmlFor="description">
-        Description
-        <textarea
-          id="description"
-          name="description"
-          type="text"
-          value={formData.description}
-          onChange={changeHandler}
-          required={true}
-        />
-      </label>
-      <button type="submit">Submit</button>
-      <Link to="/">
-        <button>Cancel</button>
-      </Link>
-    </form>
+      <NavBar deck={deck} />
+      {header}
+      <form onSubmit={submitHandler}>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="form-control"
+            id="name"
+            name="name"
+            value={formData.name}
+            type="text"
+            onChange={changeHandler}
+            required={true}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="description">
+            Description
+            </label>
+            <textarea
+              className="form-control"
+              id="description"
+              name="description"
+              type="text"
+              value={formData.description}
+              onChange={changeHandler}
+              required={true}
+            />
+        </div>
+        <div className="mb-3">
+          <Link to="/">
+            <button className="btn btn-secondary">Cancel</button>
+          </Link>
+          <button className="btn btn-primary" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

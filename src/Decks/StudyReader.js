@@ -48,7 +48,7 @@ function StudyReader({ deck: { cards }, count }) {
     cardDisplay = cards[cardNumber - 1].front;
     buttons = (
       <div>
-        <button onClick={flipClickHandler}>Flip</button>
+        <button className="btn btn-secondary" onClick={flipClickHandler}>Flip</button>
       </div>
     );
   }
@@ -57,8 +57,8 @@ function StudyReader({ deck: { cards }, count }) {
     cardDisplay = cards[cardNumber - 1].back;
     buttons = (
       <div>
-        <button onClick={flipClickHandler}>Flip</button>
-        <button onClick={nextClickHandler}>Next</button>
+        <button className="btn btn-secondary" onClick={flipClickHandler}>Flip</button>
+        <button className="btn btn-primary" onClick={nextClickHandler}>Next</button>
       </div>
     );
   }

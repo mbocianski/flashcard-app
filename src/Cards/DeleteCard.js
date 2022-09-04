@@ -20,7 +20,7 @@ function DeleteCard({ removeCard, cardId }) {
     history.go(pathname);
   };
 
-  return <button onClick={deleteCardHandler}>Delete</button>;
+  return <button className="btn btn-danger" onClick={deleteCardHandler}>Delete</button>;
 }
 
 export default DeleteCard;

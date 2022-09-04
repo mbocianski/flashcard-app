@@ -66,7 +66,7 @@ function Decks() {
 
   const deckList = decks.map((deck, index) => {
     return (
-      <div className="border border-solid" key={index}>
+      <div className="border border-solid rounded cards" key={index}>
         <DeckView deck={deck} removeDeck={removeDeck} />
       </div>
     );
@@ -79,10 +79,14 @@ function Decks() {
 
 
     return (
+      <div className="row justify-content-center ">
+        <div className="col-8 mb-5">
       <Switch>
         <Route exact path="/">
         <Link to="/decks/new">
-          <button>Create Deck</button>
+          <button className="btn btn-secondary my-3">
+            <img width="20px"  src="https://i.ibb.co/9Wsgsnm/icons8-plus-67.png" alt="plus sign" />&nbsp;Create Deck
+            </button>
         </Link>
           {!loaded ? <Loading /> : decks.length ? deckList : <CreateMessage/>}
         </Route>
@@ -90,12 +94,14 @@ function Decks() {
           <CreateDeck addDeck={addDeck} />
         </Route>
         <Route path="/decks/:deckId">
-         {!loaded ? <Loading />  :<Deck ids={ids} editDeck={editDeck} removeDeck={removeDeck} /> }
+         {!loaded ? <Loading /> :<Deck ids={ids} editDeck={editDeck} removeDeck={removeDeck} /> }
         </Route>
         <Route>
           <NotFound />
         </Route>
       </Switch>
+      </div>
+      </div>
     );
    
 }

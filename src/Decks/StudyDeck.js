@@ -33,13 +33,13 @@ function StudyDeck() {
 function NotEnoughCards(){
   return (
     <div>
-       <h2>{`Study: ${deck.name}`}</h2>
-      <div className="border border-solid">
+       <h2 className="py-2">{`Study: ${deck.name}`}</h2>
+      <div className="border border-solid p-4">
         <h3>Not Enough Cards.</h3>
         <p>{`You need at least 3 cards to study. 
               There are ${cardCount} cards in this deck.`}</p>
         <Link to={`/decks/${deck.id}/cards/new`}>
-          <button>Add Cards</button>
+          <button className="btn btn-primary">Add Cards</button>
         </Link>
       </div>
     </div>
@@ -59,8 +59,8 @@ function NotEnoughCards(){
   //If enough cards are available study screen will render
   return (
     <div>
-      <h2>{`Study: ${deck.name}`}</h2>
-      <div className="border border-solid">
+      <h2 className="py-2">{`Study: ${deck.name}`}</h2>
+      <div className="border border-solid p-4">
       {!deck ? <Loading /> :<StudyReader deck={deck} count={cardCount} />}
       </div>
     </div>

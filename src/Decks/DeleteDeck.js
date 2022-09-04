@@ -19,7 +19,7 @@ function DeleteDeck({ deckId, removeDeck }) {
     }
   }
 
-  return <button onClick={deleteDeckHandler}>Delete</button>;
+  return <button className="btn btn-danger" onClick={deleteDeckHandler}>Delete</button>;
 }
 
 export default DeleteDeck;

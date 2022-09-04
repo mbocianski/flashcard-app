@@ -1,0 +1,41 @@
+/* fonts */
+
+button, p, a {
+    font-size: 20px;
+}
+
+h2 { 
+    font-size: 60px;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+
+
+
+/* navbar */
+
+nav > p, nav > p > span {
+    padding: 0 10px;  
+}
+
+nav > a:hover {
+    color:#34779E;
+    text-decoration: none;
+}
+
+nav > a {
+    color: #66BAEB;
+}
+
+/* cards */
+
+.cards:nth-child(even){
+    background-color: #DCE0E8;
+}
+
+button {
+    margin-right: 10px;
+}

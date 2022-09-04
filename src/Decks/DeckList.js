@@ -8,7 +8,7 @@ function DeckList({decks=[], removeDeck}){
 if (decks.length > 0){
     decks.map((deck, index) => {
         return (
-          <div className="border border-solid" key={index}>
+          <div className="border border-solid py-5" key={index}>
             <DeckView deck={deck} removeDeck={removeDeck} />
           </div>
         );

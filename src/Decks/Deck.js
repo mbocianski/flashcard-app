@@ -1,15 +1,15 @@
 import React from "react";
 import { readDeck } from "../utils/api/index";
-import { useParams, Switch, Route} from "react-router-dom";
+import { useParams, Switch, Route } from "react-router-dom";
 import DeckView from "./DeckView";
 import { useEffect, useState } from "react";
 import Cards from "../Cards/Cards";
-import EditDeck from "./EditDeck";
 import NavBar from "../Common/NavBar";
 import CardForm from "../Cards/CardForm";
 import EditCard from "../Cards/EditCard";
 import StudyDeck from "./StudyDeck";
 import Loading from "../Common/Loading";
+import DeckForm from "./DeckForm";
 
 function Deck({ ids, removeDeck, editDeck }) {
   //Sets state for deck
@@ -28,9 +28,7 @@ function Deck({ ids, removeDeck, editDeck }) {
   const addCard = (cardToAdd) => {
     console.log("addCard", cardToAdd);
     setCards([...cards, cardToAdd]);
-
   };
-
 
   //prop for updating a card in a deck
   const editCard = (cardToEdit) => {
@@ -71,48 +69,52 @@ function Deck({ ids, removeDeck, editDeck }) {
 
   const blankCard = {
     front: "",
-    back: ""
-  }
+    back: "",
+  };
 
   // if (!loaded) return <Loading />;
 
   //uses DeckView to render deck information if deck Id exist
   // if (ids.includes(parseInt(deckId))) {
-    return (
-      <div>
-        <Switch>
-          <Route exact path="/decks/:deckId">
-            <NavBar deck={deck} />
-            {!loaded ? <Loading />:<DeckView deck={deck} removeDeck={removeDeck} />}
-            <h2>Cards</h2>
+  return (
+    <div className="">
+      <Switch>
+        <Route exact path="/decks/:deckId">
+          <NavBar deck={deck} />
+          {!loaded ? (
+            <Loading />
+          ) : (
+            <DeckView deck={deck} removeDeck={removeDeck} />
+          )}
+          <h2 className="px-5">Cards</h2>
+          <div className="px-5">
             <Cards cards={cards} removeCard={removeCard} />
-          </Route>
-          <Route path={"/decks/:deckId/edit"}>
-            <EditDeck editDeck={editDeck} />
-          </Route>
-          <Route exact path={"/decks/:deckId/cards/new"}>
-            <NavBar deck={deck} />
-            <h2>{`${deck.name}: `}</h2>
-            <h2>Add Card</h2>
-            <CardForm
-              formFunction="new"
-              addCard={addCard}
-              card = {blankCard}
-            />
-          </Route>
-          <Route path={"/decks/:deckId/cards/:cardId/edit"}>
-            <EditCard editCard={editCard} />
-          </Route>
-          <Route path={"/decks/:deckId/study"}>
-            <NavBar deck={deck} />
-            <StudyDeck deck={deck} />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
+          </div>
+        </Route>
+        <Route path={"/decks/:deckId/edit"}>
+          <DeckForm deck={deck} editDeck={editDeck} formFunction="edit" />
+        </Route>
+        <Route exact path={"/decks/:deckId/cards/new"}>
+          <NavBar deck={deck} />
+          <h3><span>{`${deck.name}: `}</span><span></span>Add Card</h3>
+          <CardForm formFunction="new" addCard={addCard} card={blankCard} />
+        </Route>
+        <Route path={"/decks/:deckId/cards/:cardId/edit"}>
+          <NavBar deck={deck} />
+          <EditCard editCard={editCard} />
+        </Route>
+        <Route path={"/decks/:deckId/study"}>
+          <NavBar deck={deck} />
+          <div className="px-5">
+          <StudyDeck deck={deck} />
+          </div>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
 
-  // return <NotFound />;
+// return <NotFound />;
 // }
 
 export default Deck;

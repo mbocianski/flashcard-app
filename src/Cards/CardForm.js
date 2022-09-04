@@ -8,23 +8,22 @@ function CardForm({ card, formFunction, addCard, editCard }) {
   const initialFormData = card;
   const [formData, setFormData] = useState(initialFormData);
   const history = useHistory();
-  const [deck, setDeck] = useState([])
-  const {deckId} = useParams();
+  const [deck, setDeck] = useState([]);
+  const { deckId } = useParams();
 
- //uses fetchData to return deck info using deckId (from params)
- useEffect(() => {
-  setDeck([]);
-  const controller = new AbortController();
-  async function fetchData() {
-    const data = await readDeck(deckId, controller.signal);
-    setDeck(data);;
-  }
+  //uses fetchData to return deck info using deckId (from params)
+  useEffect(() => {
+    setDeck([]);
+    const controller = new AbortController();
+    async function fetchData() {
+      const data = await readDeck(deckId, controller.signal);
+      setDeck(data);
+    }
 
-  fetchData();
+    fetchData();
 
-  return () => controller.abort();
-}, [deckId]);
-
+    return () => controller.abort();
+  }, [deckId]);
 
   //makes sure page is rerendered after hitting Save
   useEffect(() => {
@@ -60,57 +59,60 @@ function CardForm({ card, formFunction, addCard, editCard }) {
   let buttons;
 
   if (formFunction === "new") {
-
     buttons = (
       <div>
         <Link to={`/decks/${deckId}`}>
-          <button>Done</button>
+          <button className="btn btn-secondary">Done</button>
         </Link>
-        <button type="submit">Save</button>
+        <button className="btn btn-primary" type="submit">Save</button>
       </div>
     );
   }
 
   if (formFunction === "edit") {
-
     buttons = (
       <div>
         <Link to={`/decks/${deck.id}`}>
-          <button>Cancel</button>
+          <button className="btn btn-secondary" >Cancel</button>
         </Link>
-        <button type="submit">Submit</button>
+        <button className="btn btn-primary" type="submit">Submit</button>
       </div>
     );
   }
 
- 
-
   return (
-      <form onSubmit={submitHandler}>
-        <label htmlFor="front">
-          Front
-          <textarea
-            id="front"
-            name="front"
-            required={true}
-            placeholder="Text for the front of the Card"
-            onChange={changeHandler}
-            value={formData.front}
-          />
+    <form onSubmit={submitHandler}>
+      <div className="mb-3">
+      <label className="form-label" htmlFor="front">
+        Front
+      </label>
+        <textarea
+          className="form-control"
+          id="front"
+          name="front"
+          required={true}
+          placeholder="Text for the front of the Card"
+          onChange={changeHandler}
+          value={formData.front}
+        />
+      </div>
+      <div className="mb-3">
+      <label className="form-label" htmlFor="back">
+        Back
         </label>
-        <label htmlFor="back">
-          Back
-          <textarea
-            id="back"
-            name="back"
-            required={true}
-            placeholder="Text for the back of the Card"
-            onChange={changeHandler}
-            value={formData.back}
-          />
-        </label>
-        {buttons}
-      </form>
+        <textarea
+          className="form-control"
+          id="back"
+          name="back"
+          required={true}
+          placeholder="Text for the back of the Card"
+          onChange={changeHandler}
+          value={formData.back}
+        />
+    
+      </div>
+      {buttons}
+    </form>
   );
 }
 
