@@ -36,7 +36,7 @@ function NotEnoughCards(){
        <h2 className="py-2">{`Study: ${deck.name}`}</h2>
       <div className="border border-solid p-4">
         <h3>Not Enough Cards.</h3>
-        <p>{`You need at least 3 cards to study. 
+        <p>{`You need at least 3 cards to study.
               There are ${cardCount} cards in this deck.`}</p>
         <Link to={`/decks/${deck.id}/cards/new`}>
           <button className="btn btn-primary">Add Cards</button>
