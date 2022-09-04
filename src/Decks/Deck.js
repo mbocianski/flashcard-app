@@ -4,12 +4,12 @@ import { useParams, Switch, Route } from "react-router-dom";
 import DeckView from "./DeckView";
 import { useEffect, useState } from "react";
 import Cards from "../Cards/Cards";
-import NavBar from "../Common/NavBar";
 import CardForm from "../Cards/CardForm";
 import EditCard from "../Cards/EditCard";
 import StudyDeck from "./StudyDeck";
 import Loading from "../Common/Loading";
 import DeckForm from "./DeckForm";
+import NavBar from "../Common/NavBar";
 
 function Deck({ ids, removeDeck, editDeck }) {
   //Sets state for deck
