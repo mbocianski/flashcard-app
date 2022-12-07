@@ -25,7 +25,6 @@ function DeckForm({ formFunction, addDeck, editDeck, deck }) {
       setLoaded(false);
       async function fetchData() {
         const data = await readDeck(deckId, controller.signal);
-        console.log("data:", data);
         setFormData(data);
         setLoaded(true);
       }

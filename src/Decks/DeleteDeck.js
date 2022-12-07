@@ -14,7 +14,6 @@ function DeleteDeck({ deckId, removeDeck }) {
     ) {
       removeDeck(deckId);
       await deleteDeck(deckId);
-      console.log("Deleted: ", deckId);
       history.push("/");
     }
   }

@@ -15,7 +15,6 @@ function DeleteCard({ removeCard, cardId }) {
     ) {
       removeCard(cardId);
       await deleteCard(cardId);
-      console.log("Deleted Card # ", cardId);
     }
     history.go(pathname);
   };

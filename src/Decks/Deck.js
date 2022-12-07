@@ -26,7 +26,6 @@ function Deck({ ids, removeDeck, editDeck }) {
 
   //prop for adding cards to the deck
   const addCard = (cardToAdd) => {
-    console.log("addCard", cardToAdd);
     setCards([...cards, cardToAdd]);
   };
 
