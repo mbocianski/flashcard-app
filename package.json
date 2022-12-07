@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "start": "concurrently \"npm run start:server\" \"npm run start:react\"",
     "start:react": "react-scripts start",
-    "start:server": "node server.js",
+    "start:server": "json-server ./data/db.json",
     "start:solution": "npm run -it docker:build && npm run docker:run",
     "test": "react-scripts test",
     "test:solution": "npm run docker:build && npm run docker:test"
