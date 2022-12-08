@@ -1,8 +1,11 @@
-#FlashCard App
+# FlashCard App
+
+[View Live App](https://flashcard-app-frontend-6zec.onrender.com)
 
 - This project is a study tool to help users creeate decks of flashcards, build study decks and cards, and study the cards.
 - Highlights include forms to create and edit decks and cards as well as the study function, a univeral NavBar component that can be used accross multiple pages.
-- Data is stored locally using localhost:5000
+- Data is stored locally using localhost:5000 for development
+= Production data is stored on a [Json-server](
 
 - Created a REST API and middleware functions to allow user(s) to create, read, update and delete their perfect deck of study cards.
 - Defined routes and URLs, and used state over multiple components.
