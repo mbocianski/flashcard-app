@@ -13,7 +13,7 @@
 
 
 
-*How to View*
+*How to Install*
 
 - Fork and clone the repository
 - Run  `npm install`
